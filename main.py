@@ -35,9 +35,11 @@ diff_level = input("Choose a difficulty. Type 'easy' or 'hard': ")
 
 comp_ = random.randint(1, 100)
 
+#Error handler in case the player input a wrong game difficulty
 if game_level(diff_level):
     player_life = game_level(diff_level)
     guess = True
+    #Loops till life is exhausted, guess is correct or player ends the game
     while guess is True:
         print(f"You've have {player_life} life remaining to get the answer")
         user_ = int(input("Make a guess: "))
