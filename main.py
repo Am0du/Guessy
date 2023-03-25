@@ -28,39 +28,50 @@ def game_logo():
     
     
     
+def game():
+    """The game"""
+    game_logo()
+    print("Welcome to the Number Guessing game!\nI'm thinking of a number between 1 and 100")
+    user_name = input("What's your name: ")
+    diff_level = input("Choose a difficulty. Type 'easy' or 'hard': ")
+    
+    comp_ = random.randint(1, 100)
+    
+    #Error handler in case the player input a wrong game difficulty
+    if game_level(diff_level):
+        player_life = game_level(diff_level)
+        guess = True
+        #Loops till life is exhausted, guess is correct or player ends the game
+        while guess is True:
+            print(f"You've have {player_life} life remaining to get the answer")
+            user_ = int(input("Make a guess: "))
+            
+            print(check_guess(comp_, user_, user_name))
+            player_life -= 1
+               
+            user_choice = input("Do you want to continue, Type 'yes' to continue and 'no' to stop: ").lower()
+            if player_life == 0 or user_ == comp_ or user_choice == 'no':
+                guess = False
+            game_logo()
+    
+        if player_life == 0:
+            game_logo()
+            print("you've used up your life\nGame over!!!!!")
+        elif user_choice =='yes':
+            game_logo()
+            print(f"Your guess is {check_guess(comp_, user_, user_name)}")
+            
+    
+    
+            
+    else:
+        print("Invalid input")
 
-print(f"{logo}\nWelcome to the Number Guessing game!\nI'm thinking of a number between 1 and 100")
-user_name = input("What's your name: ")
-diff_level = input("Choose a difficulty. Type 'easy' or 'hard': ")
-
-comp_ = random.randint(1, 100)
-
-#Error handler in case the player input a wrong game difficulty
-if game_level(diff_level):
-    player_life = game_level(diff_level)
-    guess = True
-    #Loops till life is exhausted, guess is correct or player ends the game
-    while guess is True:
-        print(f"You've have {player_life} life remaining to get the answer")
-        user_ = int(input("Make a guess: "))
+    game_logo()
+    restart = input("Do you want to restart. Type 'yes' and 'no' to end: ")
+    if restart == 'yes':
         
-        print(check_guess(comp_, user_, user_name))
-        player_life -= 1
-           
-        user_choice = input("Do you want to stop, Type 'yes' to stop and 'no' to continue: ").lower()
-        if player_life == 0 or user_ == comp_ or user_choice == 'yes':
-            guess = False
-        game_logo()
-
-    if player_life == 0:
-        game_logo()
-        print("you've used up your life\nGame over!!!!!")
-    elif user_choice =='yes':
-        game_logo()
-        print(f"Your guess is {check_guess(comp_, user_, user_name)}")
-        
+        game()
 
 
-        
-else:
-    print("Invalid input")
+game()
